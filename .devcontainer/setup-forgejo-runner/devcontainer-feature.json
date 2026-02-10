@@ -1,0 +1,30 @@
+{
+  "id": "setup-forgejo-runner",
+  "version": "1.0.0",
+  "name": "Setup Forgejo Runner",
+  "description": "Installs forgejo Runner for testing",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Version of forgejo runner"
+    }
+  },
+  "dependsOn": {},
+  // "installsAfter": ["ghcr.io/devcontainers/features/common-utils:2"],
+  "mounts": [
+    {
+      "type": "bind",
+      "source": "${localEnv:XDG_RUNTIME_DIR}/podman/podman.sock",
+      "target": "/tmp/podman-143d1b19-36fb-4790-9a48-eb7a5e5e378e.sock"
+    }
+  ],
+  "containerEnv": {
+    "DOCKER_HOST": "unix:///tmp/podman-143d1b19-36fb-4790-9a48-eb7a5e5e378e.sock"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  }
+}

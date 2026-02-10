@@ -1,0 +1,15 @@
+{
+  "name": "runner-images",
+  "image": "ghcr.io/sebatec-eu/base-devcontainer:1",
+  "features": {
+    "./setup-forgejo-runner": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["redhat.vscode-yaml", "timonwong.shellcheck"]
+    }
+  },
+  "runArgs": ["--userns=keep-id"],
+  "containerUser": "vscode"
+}
