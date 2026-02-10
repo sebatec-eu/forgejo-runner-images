@@ -2,7 +2,10 @@
   "name": "runner-images",
   "image": "ghcr.io/sebatec-eu/base-devcontainer:1",
   "features": {
-    "./setup-forgejo-runner": {}
+    "./setup-forgejo-runner": {},
+    "ghcr.io/devcontainers-extra/features/apt-packages:1": {
+      "packages": "podman-docker"
+    }
   },
   "customizations": {
     "vscode": {

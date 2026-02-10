@@ -20,7 +20,8 @@
     }
   ],
   "containerEnv": {
-    "DOCKER_HOST": "unix:///tmp/podman-143d1b19-36fb-4790-9a48-eb7a5e5e378e.sock"
+    "DOCKER_HOST": "unix:///tmp/podman-143d1b19-36fb-4790-9a48-eb7a5e5e378e.sock",
+    "CONTAINER_HOST": "unix:///tmp/podman-143d1b19-36fb-4790-9a48-eb7a5e5e378e.sock"
   },
   "customizations": {
     "vscode": {
