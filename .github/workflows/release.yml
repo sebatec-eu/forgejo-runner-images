@@ -51,3 +51,8 @@ jobs:
       - name: Build container
         run: make build-${{ matrix.subFolders.subFolder }}
         if: steps.meta.outputs.RUN_BUILD == 'true'
+      - name: Push container
+        run: make push-${{ matrix.subFolders.subFolder }}
+        env:
+          TAGS: ${{ join(matrix.subFolders.tags, ' ') }}
+        if: steps.meta.outputs.RUN_BUILD == 'true'
