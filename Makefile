@@ -5,6 +5,6 @@ BUILDS := $(addprefix build-,$(COMPONENTS))
 build: $(BUILDS)
 
 build-%:
-	podman build -f $*/Dockerfile -t ghcr.io/sebatec-eu/$*-forgejo-runner:latest --build-arg=IMAGE_REVISION=$(git log -1 --pretty=%H $*)
+	podman build -f $*/Dockerfile -t ghcr.io/sebatec-eu/$*-forgejo-runner:latest --timestamp=$(shell git log -1 --pretty=%ct node) --build-arg=IMAGE_REVISION=$(shell git log -1 --pretty=%H $*)
 
 build-node:
