@@ -24,6 +24,8 @@ jobs:
     permissions:
       packages: write
     steps:
+      - name: Install latest Podman version
+        uses: redhat-actions/podman-install@main
       - name: Checkout (GitHub)
         uses: actions/checkout@v6
         with:
@@ -50,9 +52,9 @@ jobs:
           fi
       - name: Build container
         run: make build-${{ matrix.subFolders.subFolder }}
-        if: steps.meta.outputs.RUN_BUILD == 'true'
+        # if: steps.meta.outputs.RUN_BUILD == 'true'
       - name: Push container
         run: make push-${{ matrix.subFolders.subFolder }}
         env:
           TAGS: ${{ join(matrix.subFolders.tags, ' ') }}
-        if: steps.meta.outputs.RUN_BUILD == 'true'
+        # if: steps.meta.outputs.RUN_BUILD == 'true'

@@ -6,7 +6,7 @@ TAGS ?= latest
 build: $(BUILDS)
 
 build-%:
-	podman build -f $*/Dockerfile -t ghcr.io/sebatec-eu/$*-forgejo-runner:latest --timestamp=$(shell git log -1 --pretty=%ct node) --build-arg=IMAGE_REVISION=$(shell git log -1 --pretty=%H $*)
+	podman build -f $*/Dockerfile -t ghcr.io/sebatec-eu/$*-forgejo-runner:latest --timestamp=$(shell git log -1 --pretty=%ct node) --build-arg=IMAGE_REVISION=$(shell git log -1 --pretty=%H $*) --squash
 
 
 build-node:
