@@ -49,7 +49,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          auth_file_path: /tmp/auth.json
       - name: Push container
         run: make push-${{ matrix.runners.release }}
         env:
           TAGS: ${{ join(matrix.runners.tags, ' ') }}
+          REGISTRY_AUTH_FILE: /tmp/auth.json
