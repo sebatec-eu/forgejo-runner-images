@@ -44,12 +44,8 @@ jobs:
       - name: Build container
         run: make build-${{ matrix.runners.release }}
       - name: Login to GitHub Container Registry
-        uses: redhat-actions/podman-login@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          auth_file_path: /tmp/auth.json
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.repository_owner }} --password-stdin --authfile=/tmp/auth.json
       - name: Push container
         run: make push-${{ matrix.runners.release }}
         env:
