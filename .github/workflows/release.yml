@@ -10,51 +10,46 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        subFolders:
-          - subFolder: node
+        runners:
+          - release: stable
+            tags:
+              - "latest"
+              - "1"
+              - "1.0"
+              - "1.0.0"
+          - release: testing
             tags:
               - "latest"
               - "1"
               - "1.0"
               - "1.0.0"
     concurrency:
-      group: ${{ github.workflow }}-${{ toJSON(matrix.subFolders) }}-${{ github.ref }}
+      group: ${{ github.workflow }}-${{ toJSON(matrix.runners) }}-${{ github.ref }}
       cancel-in-progress: true
     runs-on: ubuntu-latest
+    container:
+      image: "docker.io/debian:testing"
+      options: --privileged
     permissions:
       packages: write
     steps:
-      - name: Install latest Podman version
-        uses: redhat-actions/podman-install@main
+      - name: Install relevant tools
+        run: apt-get update && apt-get install -y podman mkosi make
+        env:
+          DEBIAN_FRONTEND: noninteractive
       - name: Checkout (GitHub)
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Build container
+        run: make build-${{ matrix.runners.release }}
       - name: Login to GitHub Container Registry
         uses: redhat-actions/podman-login@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get meta information of the current build
-        id: "meta"
-        run: |
-          set -xeu
-          IMAGE_REVISION=$(git log -1 --pretty=%H ${{ matrix.subFolders.subFolder }})
-          echo "IMAGE_REVISION=$IMAGE_REVISION" >> $GITHUB_OUTPUT
-
-          docker pull ghcr.io/sebatec-eu/${{ matrix.subFolders.subFolder }}-forgejo-runner:${{ matrix.subFolders.tags[0] }}
-          PREV_IMAGE_REVISION=$(docker image inspect ghcr.io/sebatec-eu/${{ matrix.subFolders.subFolder }}-forgejo-runner:${{ matrix.subFolders.tags[0] }} | jq -r '.[].Config.Labels|."org.opencontainers.image.revision"')
-          if [ "$PREV_IMAGE_REVISION" = "$IMAGE_REVISION" ]; then
-            echo "RUN_BUILD=false" >> $GITHUB_OUTPUT
-          else
-            echo "RUN_BUILD=true" >> $GITHUB_OUTPUT
-          fi
-      - name: Build container
-        run: make build-${{ matrix.subFolders.subFolder }}
-        if: steps.meta.outputs.RUN_BUILD == 'true'
       - name: Push container
-        run: make push-${{ matrix.subFolders.subFolder }}
+        run: make push-${{ matrix.runners.release }}
         env:
-          TAGS: ${{ join(matrix.subFolders.tags, ' ') }}
-        if: steps.meta.outputs.RUN_BUILD == 'true'
+          TAGS: ${{ join(matrix.runners.tags, ' ') }}

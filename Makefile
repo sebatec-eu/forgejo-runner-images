@@ -1,4 +1,4 @@
-COMPONENTS := node
+COMPONENTS := stable testing
 BUILDS := $(addprefix build-,$(COMPONENTS))
 TAGS ?= latest
 
@@ -6,14 +6,15 @@ TAGS ?= latest
 build: $(BUILDS)
 
 build-%:
-	podman build -f $*/Dockerfile -t ghcr.io/sebatec-eu/$*-forgejo-runner:latest --timestamp=$(shell git log -1 --pretty=%ct node) --build-arg=IMAGE_REVISION=$(shell git log -1 --pretty=%H $*) --squash
+	./build.sh $*
 
-
-build-node:
+build-stable:
+build-testing:
 
 push-%:
 	for tag in $(TAGS); do \
 		podman push sebatec-eu/$*-forgejo-runner:latest ghcr.io/sebatec-eu/$*-forgejo-runner:$$tag; \
 	done
 
-push-node:
+push-stable:
+push-testing:
