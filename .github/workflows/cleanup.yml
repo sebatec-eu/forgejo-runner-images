@@ -1,0 +1,19 @@
+name: "Cleanup outdated packages"
+on:
+  # schedule:
+  #   - cron: "5 5 * * 0"
+  workflow_dispatch:
+jobs:
+  clean-untagged-images:
+    if: github.server_url == 'https://github.com' && github.repository == 'sebatec-eu/forgejo-runner-images'
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout (GitHub)
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - run: make clean-untagged-images
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
