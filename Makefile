@@ -6,7 +6,7 @@ SHELL ?= /bin/bash
 build: $(addprefix build-,$(COMPONENTS))
 
 build-%:
-	echo ./build.sh $*
+	./build.sh $*
 
 push-%:
 	for tag in $(TAGS); do \
