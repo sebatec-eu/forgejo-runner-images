@@ -25,6 +25,7 @@ RUN set -eux \
         openssh-client \
         pkg-config \
         procps \
+        rsync \
         tar \
         wget \
         xz-utils \
