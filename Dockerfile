@@ -11,24 +11,31 @@ RUN set -eux \
 	    sqlite3 \
         bash-completion \
         binutils \
+        bzip2 \
         ca-certificates \
         curl \
         g++ \
         gcc \
         git \
         gnupg2 \
+        golang-go \
+        gzip \
         inotify-tools \
         jq \
         libc6-dev \
         make \
         netbase \
         openssh-client \
+        pipx \
         pkg-config \
         procps \
+        python3 \
         rsync \
         tar \
+        unzip \
         wget \
         xz-utils \
+        zip \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
