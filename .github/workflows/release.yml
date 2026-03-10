@@ -30,7 +30,7 @@ jobs:
       cancel-in-progress: true
     runs-on: ubuntu-latest
     container:
-      image: "docker.io/debian:testing"
+      image: "docker.io/debian:testing@sha256:ac9aed4f0221f883606621ff0f364f917aaad98b00d7a864018cd17c84ca2956"
       options: --privileged
     permissions:
       packages: write
@@ -40,7 +40,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
       - name: Checkout (GitHub)
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
       - name: Build container
