@@ -1,0 +1,25 @@
+name: "Test builds"
+on:
+  pull_request:
+    branches-ignore:
+      - main
+jobs:
+  test-build:
+    strategy:
+      matrix:
+        runners:
+          - release: stable
+          - release: testing
+    runs-on: ubuntu-latest
+    container:
+      image: "docker.io/debian:testing"
+      options: --privileged
+    steps:
+      - name: Install relevant tools
+        run: apt-get update && apt-get install -y podman mkosi make
+        env:
+          DEBIAN_FRONTEND: noninteractive
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Build container
+        run: make build-${{ matrix.runners.release }}
