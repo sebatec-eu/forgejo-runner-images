@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "https://gist.githubusercontent.com/seb-schulz/86ae2e7ef1de082149821a507f111aa8/raw/renovate.json"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions", "devcontainer"],
+      "automerge": true
+    }
+  ]
+}
