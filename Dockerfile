@@ -83,6 +83,6 @@ RUN export NODE_VERSION=$(curl -L 'https://endoflife.date/api/v1/products/node' 
     && npm --version \
     && rm -rf /tmp/*
 
-COPY --from=ghcr.io/astral-sh/uv:0.11@sha256:e49fde5daf002023f0a2e2643861ce9ca8a8da5b73d0e6db83ef82ff99969baf /uv /uvx /usr/local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.11@sha256:fc93e9ecd7218e9ec8fba117af89348eef8fd2463c50c13347478769aaedd0ce /uv /uvx /usr/local/bin/
 
 CMD ["/bin/bash"]
