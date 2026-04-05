@@ -1,5 +1,4 @@
 {
-  "name": "runner-images",
   "image": "ghcr.io/sebatec-eu/base-devcontainer:1",
   "features": {
     "ghcr.io/devcontainers-extra/features/apt-packages:1": {
@@ -12,6 +11,5 @@
       "extensions": ["redhat.vscode-yaml", "timonwong.shellcheck"]
     }
   },
-  "runArgs": ["--userns=keep-id"],
   "containerUser": "vscode"
 }
