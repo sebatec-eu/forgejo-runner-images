@@ -30,7 +30,7 @@ jobs:
       cancel-in-progress: true
     runs-on: ubuntu-latest
     container:
-      image: "docker.io/debian:testing@sha256:8245c5ee5aa2948d8ef1866e623c2053f4e4902047e97489533ebeb975d8bf6a"
+      image: "docker.io/debian:testing@sha256:e0c4680937ec5c89f44b977ebd8bff697e6d0d5157b46f6d6592d46fa08dbaf3"
       options: --privileged
     permissions:
       packages: write
