@@ -13,7 +13,7 @@ jobs:
           - release: testing
     runs-on: ubuntu-latest
     container:
-      image: "docker.io/debian:testing@sha256:2d46f43b677a047cfab870549eea0d83d0a9bea2f55b3f481efc901043916c2a"
+      image: "docker.io/debian:testing@sha256:c240b815979ec685c62bcab142767b8b4fef7599f333e648b5373aebff20e781"
       options: --privileged
     steps:
       - name: Install relevant tools
